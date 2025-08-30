@@ -5,14 +5,14 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from .models import Profile, CustomUser
-from jobs.models import Job, JobApplicant
+
 
 # Create your views here.
 
 def signup_view(request):
     if request.user.is_authenticated:
         messages.info(request, 'You are already signed in.')
-        return redirect('home')
+        return redirect('jobs/')
 
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
@@ -88,9 +88,10 @@ def signin_view(request):
             messages.error(request, 'Invalid email or password')
     return render(request, 'auth/signin.html')
 
+
 def profile_create_view(request):
     pass
-def profile_view(request):
+def profile_view(request, Job=None, JobApplicant=None):
     if not request.user.is_authenticated:
         messages.error(request, 'Please sign in first.')
         return redirect('auth:signin')
