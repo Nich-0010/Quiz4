@@ -88,9 +88,6 @@ def signin_view(request):
             messages.error(request, 'Invalid email or password')
     return render(request, 'auth/signin.html')
 
-
-def profile_create_view(request):
-    pass
 def profile_view(request, Job=None, JobApplicant=None):
     if not request.user.is_authenticated:
         messages.error(request, 'Please sign in first.')
